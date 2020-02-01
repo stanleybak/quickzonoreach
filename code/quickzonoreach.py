@@ -114,7 +114,7 @@ def profile():
 
     max_time = 0.3
     dims = 2
-    quick = False
+    quick = True
 
     data = []
     stop = False
@@ -139,7 +139,8 @@ def profile():
 
         if not data:
             # append steps
-            step_str_list = [f":**{2**(count+2)} steps**" for count in range(len(row)-1)]
+            step_str_list = [f"**{2**(count+2)} steps**" for count in range(len(row)-1)]
+            
             data.append([f'Quick={quick}'] + step_str_list)
 
         data.append(row)

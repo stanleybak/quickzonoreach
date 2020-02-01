@@ -19,13 +19,14 @@ A quick mode is also provided, and can provide an approximation of the reach set
 
 Here is a speed summary on a standard laptop in 2020:
 
-Quick=False | :**4 steps** | :**8 steps** | :**16 steps** | :**32 steps** | :**64 steps**
+Quick=False | **4 steps** | **8 steps** | **16 steps** | **32 steps** | **64 steps**
 --- | --- | --- | --- | --- | ---
-**2 dims** | 0.03 | 0.07 | 0.12 | 0.23 | 0.42
-**4 dims** | 0.03 | 0.07 | 0.12 | 0.22 | 0.52
-**8 dims** | 0.03 | 0.07 | 0.18 | 0.28 | 0.49
-**16 dims** | 0.05 | 0.11 | 0.18 | 0.31 | -
-**32 dims** | 0.07 | 0.12 | 0.22 | 0.45 | -
-**64 dims** | 0.18 | 0.24 | 0.46 | - | -
-**128 dims** | 0.73 | - | - | - | -
+**2 dims** | 0.03 | 0.06 | 0.1 | 0.21 | 0.39
+**4 dims** | 0.03 | 0.07 | 0.13 | 0.22 | 0.41
+**8 dims** | 0.04 | 0.07 | 0.13 | 0.29 | 0.47
+**16 dims** | 0.05 | 0.08 | 0.17 | 0.29 | 0.56
+**32 dims** | 0.06 | 0.13 | 0.22 | 0.42 | -
+**64 dims** | 0.17 | 0.24 | 0.42 | - | -
+**128 dims** | 0.7 | - | - | - | -
+
 
