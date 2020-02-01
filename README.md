@@ -2,7 +2,7 @@
 
 <p align="center"> <img src="code/quickzonoreach.png" alt="zono reach set" width=400/> <img src="code/hylaa.png" alt="Hylaa" width=375/> </p>
 
-Quickzonoreach is a `python3` library for quick computations of discrete-time reach sets using zonotopes, aiming to be suitable for online computation. The system model is x' = A_i x + B_i u, where A_i and B_i can change at each step. The initial states are given as a box and each step can have its own box input constraints and time step.
+Quickzonoreach is a `python3` library for quick computations of discrete-time reach sets using zonotopes, aiming to be suitable for online computation. The system model is `x' = A_i x + B_i u`, where `A_i` and `B_i` can change at each step. The initial states are given as a box and each step can have its own box input constraints and time step.
 
 ## Important Functions ##
 
