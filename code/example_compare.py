@@ -17,7 +17,7 @@ def main():
     dims = 8
     num_steps = 128
 
-    plt.figure(figsize=(6, 6))
+    plt.figure(figsize=(6, 4))
 
     quick_list = [False, True]
     col_list = ['b-', 'g:']
