@@ -1,10 +1,10 @@
 # Quick Zono Reach
 
-<p align="center"> <img src="code/quickzonoreach.png" alt="Hylaa Logo"/> </p>
+<p align="center"> <img src="code/quickzonoreach.png" alt="Hylaa Logo" size=25%/> </p>
 
 Python code for quick computations of reach sets in discrete time using zonotopes.
 
-The initial states are a box and each step can have it's own A and B matrix, box input constraints, and time step.
+The initial states are a box and each step can have its own A and B matrix, box input constraints, and time step.
 
 Code is also included for optimizing the zonotope in a specific direction as well as quick (approximate) projections onto two dimenions for plotting.
 
