@@ -9,7 +9,8 @@ Quickzonoreach is a `python3` library for quick computations of discrete-time re
 Important functions (all in `zono.py`)
 
 * `get_zonotope_reachset()`: gets the reach set, given lists for the parameters at each step.
-* `Zonotope.verts()`: get an approximate 2-d projection of the zonotope. This can be plotted directly with `Zonotope.plot()`.
+* `Zonotope.verts()`: get an approximate 2-d projection of the zonotope.
+* `Zonotope.plot()`: plots a 2-d projection of the zonotope with matplotlib.
 * `Zonotope.maximize()`: optimize over the zonotope in a given direction, for quick safety checking without LP.
 
 ## Examples ##
