@@ -17,6 +17,9 @@ from zono import get_zonotope_reachset
     
 def make_plot():
     'example usage to make quickzonoreach.png'
+
+    print("Making quickzonoreach.png (<1 sec)...")
+    plt.clf()
     
     # x' = y + u1, y' = -x + + u1 + u2
     # u1 in [-0.5, 0.5], u2 in [-1, 0]
@@ -112,62 +115,65 @@ def profile():
 
     print("Profiling...")
 
-    max_time = 0.3
-    dims = 2
-    quick = True
+    max_time = 1.0
 
-    data = []
-    stop = False
+    for quick in [False, True]:
+        print("")
+        dims = 2
 
-    while not stop:
-        row = [f'**{dims} dims**']
-        num_steps = 4
+        data = []
+        stop = False
 
-        while True:
-            start = time.perf_counter()
-            run_single_profile(dims, num_steps, quick)
-            diff = time.perf_counter() - start
+        while not stop:
+            row = [f'**{dims} dims**']
+            num_steps = 4
 
-            print(f"dims: {dims}, steps: {num_steps}, time: {round(1000 * diff, 1)}ms")
+            while True:
+                start = time.perf_counter()
+                run_single_profile(dims, num_steps, quick)
+                diff = time.perf_counter() - start
 
-            row.append(str(round(diff, 2)))
+                print(f"dims: {dims}, steps: {num_steps}, time: {round(1000 * diff, 1)}ms")
 
-            if diff > max_time:
-                break
+                row.append(str(round(diff, 3)))
 
-            num_steps *= 2
+                if diff > max_time:
+                    break
 
-        if not data:
-            # append steps
-            step_str_list = [f"**{2**(count+2)} steps**" for count in range(len(row)-1)]
-            
-            data.append([f'Quick={quick}'] + step_str_list)
+                num_steps *= 2
 
-        data.append(row)
+            if not data:
+                # append steps
+                step_str_list = [f"**{2**(count+2)} steps**" for count in range(len(row)-1)]
 
-        if len(row) == 2: # single entry (After label)
-            stop = True
+                data.append([f'Quick={quick}'] + step_str_list)
 
-        # fill in row to match original length
-        while len(row) < len(data[0]):
-            row.append("-")
+            data.append(row)
 
-        dims *= 2
+            if len(row) == 2: # single entry (After label)
+                stop = True
 
-    print(' | '.join(data[0]))
-    dashes = ['---' for _ in data[0]]
-    print(' | '.join(dashes))
+            # fill in row to match original length
+            while len(row) < len(data[0]):
+                row.append("-")
 
-    for row in data[1:]:
-        print(' | '.join(row))
+            dims *= 2
+
+        print(' | '.join(data[0]))
+        dashes = ['---' for _ in data[0]]
+        print(' | '.join(dashes))
+
+        for row in data[1:]:
+            print(' | '.join(row))
 
 def plot_compare():
     'make comparison plot'
 
-    print("Make compare plot with quick=True vs quick=False...")
-
+    print("Making compare plot with quick=True vs quick=False (20 secs)...")
+    plt.clf()
+    
     dims = 4
-    num_steps = 512
+    num_steps = 256
 
     for quick in [True, False]:
 
@@ -183,6 +189,6 @@ def plot_compare():
     plt.savefig('compare.png')
 
 if __name__ == "__main__":
-    #make_plot()
+    make_plot()
+    plot_compare()
     profile()
-    #plot_compare()
