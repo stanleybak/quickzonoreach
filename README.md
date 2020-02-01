@@ -1,6 +1,6 @@
 # Quick Zono Reach
 
-<p align="center"> <img src="code/quickzonoreach.png" alt="Hylaa Logo" size=25%/> </p>
+<p align="center"> <img src="code/quickzonoreach.png" alt="Hylaa Logo" width=200/> </p>
 
 Python code for quick computations of reach sets in discrete time using zonotopes.
 
