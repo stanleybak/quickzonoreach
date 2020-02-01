@@ -139,8 +139,8 @@ def profile():
 
         if not data:
             # append steps
-            step_str_list = [f"**{2**(count+2)} steps**" for count in range(len(row)-1)]
-            data.append([''] + step_str_list)
+            step_str_list = [f":**{2**(count+2)} steps**" for count in range(len(row)-1)]
+            data.append([f'Quick={quick}'] + step_str_list)
 
         data.append(row)
 
