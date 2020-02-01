@@ -92,6 +92,11 @@ def main():
         print("")
         dims = 2
 
+        if not quick and not save_all:
+            start_steps = 32
+        else:
+            start_steps = 8
+
         data = []
         stop = False
 
