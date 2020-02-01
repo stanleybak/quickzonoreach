@@ -19,6 +19,13 @@ A quick mode is also provided, and can provide an approximation of the reach set
 
 Here is a speed summary on a standard laptop in 2020:
 
+Markdown | Less | Pretty
+--- | --- | ---
+*Still* | `renders` | **nicely**
+1 | 2 | 3
+
+apppp
+
  | **4 steps** | **8 steps** | **16 steps** | **32 steps** | **64 steps**
 --- | --- | --- | --- | --- | ---
 **2 dims** | 0.03 | 0.06 | 0.11 | 0.2 | 0.38
