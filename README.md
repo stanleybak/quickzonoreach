@@ -19,19 +19,13 @@ A quick mode is also provided, and can provide an approximation of the reach set
 
 Here is a speed summary on a standard laptop in 2020:
 
-Markdown | Less | Pretty
---- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3
-
-apppp
-
-a | **4 steps** | **8 steps** | **16 steps** | **32 steps** | **64 steps**
+Quick=False | :**4 steps** | :**8 steps** | :**16 steps** | :**32 steps** | :**64 steps**
 --- | --- | --- | --- | --- | ---
-**2 dims** | 0.03 | 0.06 | 0.11 | 0.2 | 0.38
-**4 dims** | 0.04 | 0.06 | 0.11 | 0.21 | 0.39
-**8 dims** | 0.03 | 0.06 | 0.17 | 0.23 | 0.45
-**16 dims** | 0.05 | 0.08 | 0.18 | 0.29 | 0.55
-**32 dims** | 0.08 | 0.12 | 0.21 | 0.39 | -
-**64 dims** | 0.17 | 0.34 | - | - | -
-**128 dims** | 0.69 | - | - | - | -
+**2 dims** | 0.03 | 0.07 | 0.12 | 0.23 | 0.42
+**4 dims** | 0.03 | 0.07 | 0.12 | 0.22 | 0.52
+**8 dims** | 0.03 | 0.07 | 0.18 | 0.28 | 0.49
+**16 dims** | 0.05 | 0.11 | 0.18 | 0.31 | -
+**32 dims** | 0.07 | 0.12 | 0.22 | 0.45 | -
+**64 dims** | 0.18 | 0.24 | 0.46 | - | -
+**128 dims** | 0.73 | - | - | - | -
+
