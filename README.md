@@ -23,15 +23,15 @@ Three examples are also provided:
 
 ## Quick Matrix Exponential Mode ##
 
-The `quick=True` paramter to `get_zonotope_reachset` can be used to approximate the matrix exponential by the first two terms of the series definition (`e^{At} = I + At`), rather than computing it with a library call to `expm`. This is slightly faster, and may be accurate enough especially when the time step is small. A plot showing the difference at the final time step (at time `pi`) for the noisy harmonic oscillator system is below:
+The `quick=True` parameter to `get_zonotope_reachset` can be used to approximate the matrix exponential by the first two terms of the series definition (`e^{At} = I + At`), rather than computing it with a library call to `expm`. This is slightly faster, and may be accurate enough especially when the time step is small. A plot showing the difference at the final time step (at time `pi`) for the noisy harmonic oscillator system is below:
 
 <p align="center"> <img src="code/compare.png" alt="comparison" width=400/> </p>
 
-## Profiling Runtimes ##
+## Performance ##
 
 A rough gauge of performance can be computed with `example_profile.py`. Performance depends in the specific system, so it may vary from when you use the library. The script will produce the tables show below.
 
-For these measurements, we used a replicated a noisey harmonic oscillator with two inputs at each time step. The time bound is `pi`, and we vary the number of dimensions and time steps. The measurements are in seconds, performed on my laptop (i5-5300U CPU at 2.3GHz).
+For these measurements, we used a replicated a noisy harmonic oscillator with two inputs at each time step. The time bound is `pi`, and we vary the number of dimensions and time steps. The measurements are in seconds, performed on my laptop (i5-5300U CPU at 2.3GHz).
 
 ### Exact Matrix Exponential, Saving All Zonotopes ###
 
@@ -39,46 +39,43 @@ Exact Save All | **8 steps** | **16 steps** | **32 steps** | **64 steps** | **12
 --- | --- | --- | --- | --- | --- | ---
 **2 dims** | 0.07 | 0.1 | 0.2 | 0.4 | 0.9 | 1.6
 **4 dims** | 0.07 | 0.1 | 0.2 | 0.5 | 0.9 | 1.8
-**8 dims** | 0.08 | 0.1 | 0.3 | 0.5 | 1.0 | -
-**16 dims** | 0.09 | 0.2 | 0.3 | 0.6 | 1.3 | -
-**32 dims** | 0.1 | 0.2 | 0.5 | 0.9 | 2.0 | -
-**64 dims** | 0.5 | 0.9 | 1.6 | - | - | -
+**8 dims** | 0.07 | 0.1 | 0.3 | 0.5 | 1.0 | -
+**16 dims** | 0.09 | 0.2 | 0.3 | 0.6 | 1.2 | -
+**32 dims** | 0.1 | 0.2 | 0.4 | 0.9 | 2.1 | -
+**64 dims** | 0.3 | 0.4 | 0.8 | 2.6 | - | -
 **128 dims** | 1.1 | - | - | - | - | -
-
 
 ### Quick Matrix Exponential, Saving All Zonotopes ###
 
 Quick Save All | **8 steps** | **16 steps** | **32 steps** | **64 steps** | **128 steps** | **256 steps** | **512 steps** | **1024 steps** | **2048 steps**
 --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
-**2 dims** | 0.0007 | 0.001 | 0.002 | 0.005 | 0.02 | 0.08 | 0.1 | 0.7 | 2.2
-**4 dims** | 0.0005 | 0.0005 | 0.001 | 0.002 | 0.007 | 0.02 | 0.1 | 0.6 | 2.3
-**8 dims** | 0.0005 | 0.0006 | 0.001 | 0.003 | 0.008 | 0.04 | 0.1 | 0.7 | 2.5
-**16 dims** | 0.0006 | 0.0009 | 0.003 | 0.003 | 0.009 | 0.04 | 0.2 | 1.4 | -
-**32 dims** | 0.002 | 0.003 | 0.004 | 0.01 | 0.03 | 0.07 | 0.4 | 2.0 | -
-**64 dims** | 0.005 | 0.006 | 0.009 | 0.02 | 0.05 | 0.2 | 0.7 | 2.6 | -
-**128 dims** | 0.02 | 0.02 | 0.03 | 0.06 | 0.1 | 0.5 | 1.6 | - | -
-**256 dims** | 0.07 | 0.1 | 0.1 | 0.3 | 0.6 | 1.6 | - | - | -
-**512 dims** | 0.3 | 0.5 | 0.7 | 1.3 | - | - | - | - | -
-**1024 dims** | 1.4 | - | - | - | - | - | - | - | -
-
-
+**2 dims** | 0.0006 | 0.0009 | 0.002 | 0.004 | 0.01 | 0.07 | 0.2 | 0.6 | 2.3
+**4 dims** | 0.0005 | 0.0005 | 0.001 | 0.002 | 0.007 | 0.04 | 0.1 | 0.6 | 2.4
+**8 dims** | 0.0005 | 0.0006 | 0.001 | 0.003 | 0.008 | 0.03 | 0.1 | 0.6 | 2.6
+**16 dims** | 0.0008 | 0.001 | 0.002 | 0.003 | 0.009 | 0.03 | 0.2 | 1.3 | -
+**32 dims** | 0.002 | 0.003 | 0.01 | 0.009 | 0.02 | 0.1 | 0.5 | 1.8 | -
+**64 dims** | 0.005 | 0.007 | 0.009 | 0.03 | 0.08 | 0.2 | 0.7 | 2.6 | -
+**128 dims** | 0.01 | 0.02 | 0.03 | 0.05 | 0.2 | 0.4 | 1.7 | - | -
+**256 dims** | 0.08 | 0.1 | 0.1 | 0.2 | 0.5 | 1.6 | - | - | -
+**512 dims** | 0.3 | 0.4 | 0.7 | 1.3 | - | - | - | - | -
+**1024 dims** | 1.6 | - | - | - | - | - | - | - | -
 
 ### Quick Matrix Exponential, Saving Only the Last Zonotope ###
 
 Which zonotopes are saved can be controlled with the `save_list` parameter to `get_zonotope_reachset`. If you're doing many steps or working in high dimensions, saving copies at every step can sometimes slow things down.
 
-Quick Save Last | **8 steps** | **16 steps** | **32 steps** | **64 steps** | **128 steps** | **256 steps** | **512 steps** | **1024 steps** | **2048 steps** | **4096 steps** | **8192 steps** | **16384 steps**
---- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
-**2 dims** | 0.0006 | 0.0007 | 0.001 | 0.002 | 0.01 | 0.02 | 0.03 | 0.04 | 0.07 | 0.2 | 0.5 | 1.7
-**4 dims** | 0.0004 | 0.0004 | 0.0006 | 0.001 | 0.002 | 0.005 | 0.01 | 0.03 | 0.08 | 0.3 | 0.9 | 5.8
-**8 dims** | 0.001 | 0.001 | 0.002 | 0.003 | 0.006 | 0.02 | 0.04 | 0.08 | 0.1 | 0.8 | 3.4 | -
-**16 dims** | 0.001 | 0.001 | 0.002 | 0.02 | 0.007 | 0.02 | 0.07 | 0.1 | 0.5 | 1.9 | - | -
-**32 dims** | 0.002 | 0.01 | 0.003 | 0.01 | 0.03 | 0.05 | 0.2 | 0.3 | 1.3 | - | - | -
-**64 dims** | 0.005 | 0.006 | 0.008 | 0.02 | 0.05 | 0.1 | 0.3 | 0.9 | 3.5 | - | - | -
-**128 dims** | 0.04 | 0.04 | 0.04 | 0.06 | 0.1 | 0.3 | 0.8 | 2.9 | - | - | - | -
-**256 dims** | 0.07 | 0.1 | 0.1 | 0.2 | 0.5 | 1.4 | - | - | - | - | - | -
-**512 dims** | 0.3 | 0.4 | 0.6 | 1.2 | - | - | - | - | - | - | - | -
-**1024 dims** | 1.2 | - | - | - | - | - | - | - | - | - | - | -
+Quick Save Last | **32 steps** | **64 steps** | **128 steps** | **256 steps** | **512 steps** | **1024 steps** | **2048 steps** | **4096 steps** | **8192 steps** | **16384 steps**
+--- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
+**2 dims** | 0.001 | 0.002 | 0.004 | 0.02 | 0.03 | 0.05 | 0.06 | 0.2 | 0.5 | 1.6
+**4 dims** | 0.0008 | 0.001 | 0.002 | 0.005 | 0.01 | 0.03 | 0.08 | 0.3 | 0.9 | 5.7
+**8 dims** | 0.001 | 0.003 | 0.005 | 0.02 | 0.03 | 0.07 | 0.1 | 0.7 | 3.5 | -
+**16 dims** | 0.002 | 0.003 | 0.007 | 0.02 | 0.08 | 0.2 | 0.6 | 2.1 | - | -
+**32 dims** | 0.003 | 0.006 | 0.02 | 0.05 | 0.1 | 0.4 | 1.4 | - | - | -
+**64 dims** | 0.02 | 0.03 | 0.04 | 0.1 | 0.3 | 0.8 | 3.3 | - | - | -
+**128 dims** | 0.05 | 0.07 | 0.09 | 0.3 | 0.9 | 2.9 | - | - | - | -
+**256 dims** | 0.1 | 0.3 | 0.6 | 1.1 | - | - | - | - | - | -
+**512 dims** | 0.6 | 1.2 | - | - | - | - | - | - | - | -
+**1024 dims** | 3.8 | - | - | - | - | - | - | - | - | -
 
 
 ## Ideas for More Speed ##
