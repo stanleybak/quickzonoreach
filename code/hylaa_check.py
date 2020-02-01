@@ -13,7 +13,7 @@ from hylaa import lputil
 def make_automaton():
     'make the hybrid automaton'
 
-    ha = HybridAutomaton()
+    ha = HybridAutomaton('Hylaa Output (hylaa_check.py)')
 
     # mode one: x' = y + u1, y' = -x + + u1 + u2
     # u1 in [-0.5, 0.5], u2 in [-1, 0]
@@ -46,6 +46,9 @@ def make_settings():
     settings.plot.plot_mode = PlotSettings.PLOT_IMAGE
     settings.stdout = HylaaSettings.STDOUT_NORMAL
     settings.plot.filename = "hylaa.png"
+
+    settings.plot.label.title_size = 18
+    settings.plot.plot_size = (6, 6)
 
     return settings
 

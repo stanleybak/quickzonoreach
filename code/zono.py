@@ -34,7 +34,7 @@ def get_zonotope_reachset(init_box, a_mat_list, b_mat_list, input_box_list, dt_l
     if save_list[0]:
         rv.append(z.clone())
 
-    for a_mat, b_mat, input_box, dt, save in zip(a_mat_list, b_mat_list, input_box_list, dt_list, save_list):
+    for a_mat, b_mat, input_box, dt, save in zip(a_mat_list, b_mat_list, input_box_list, dt_list, save_list[1:]):
         disc_a_mat, disc_b_mat = to_discrete_time_mat(a_mat, b_mat, dt, quick=quick)
 
         z.mat_t = np.dot(disc_a_mat, z.mat_t)
@@ -160,10 +160,10 @@ class Zonotope(Freezable):
 
         return kamenev.get_verts(2, max_func, epsilon=epsilon)
 
-    def plot(self, col='k-o', lw=1, xdim=0, ydim=1, epsilon=1e-7):
+    def plot(self, col='k-o', lw=1, xdim=0, ydim=1, label=None, epsilon=1e-7):
         'plot this zonotope'
 
         verts = self.verts(xdim=xdim, ydim=ydim, epsilon=epsilon)
 
         xs, ys = zip(*verts)
-        plt.plot(xs, ys, col, lw=lw)
+        plt.plot(xs, ys, col, lw=lw, label=label)
