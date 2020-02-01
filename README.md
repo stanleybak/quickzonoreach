@@ -77,7 +77,6 @@ Quick Save Last | **32 steps** | **64 steps** | **128 steps** | **256 steps** | 
 **512 dims** | 0.6 | 1.2 | - | - | - | - | - | - | - | -
 **1024 dims** | 3.8 | - | - | - | - | - | - | - | - | -
 
-
 ## Ideas for More Speed ##
 
 If using `quick` and only saving some of the zonotopes is still too slow, make sure you have a good version of BLAS installed like OpenBlas (matrix dot product in `numpy` is an important operation for speed). It may be possible to use 32-bit floats instead of 64 bit.
