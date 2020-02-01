@@ -5,10 +5,49 @@ zonotope functions
 import matplotlib.pyplot as plt
 import numpy as np
 
-from util import compress_init_box, Freezable
-from timerutil import Timers
+from util import compress_init_box, Freezable, to_discrete_time_mat
 
 import kamenev
+
+def get_zonotope_reachset(init_box, a_mat_list, b_mat_list, input_box_list, dt_list, save_list=None, quick=False):
+    '''get the discrete-time zonotope reachable set at each time step
+
+    b_mat list can include 'None' entries, in which case no inputs are applied for that step
+
+    if save_list is not None, it is a list of booleans, one longer than the other lists, indicating if the
+    zonotope should be saved in the return value (the first entry is for time zero). The default is to save
+    every step
+    '''
+
+    assert len(a_mat_list) == len(b_mat_list) == len(input_box_list) == len(dt_list), "all lists should be same length"
+
+    # save everything by default
+    if save_list is None:
+        save_list = [True] * (len(a_mat_list) + 1)
+
+    assert len(save_list) == len(a_mat_list) + 1, "Save mat list should be one longer than the other lists"
+
+    z = zono_from_box(init_box)
+
+    rv = []
+
+    if save_list[0]:
+        rv.append(z.clone())
+
+    for a_mat, b_mat, input_box, dt, save in zip(a_mat_list, b_mat_list, input_box_list, dt_list, save_list):
+        disc_a_mat, disc_b_mat = to_discrete_time_mat(a_mat, b_mat, dt, quick=quick)
+
+        z.mat_t = np.dot(disc_a_mat, z.mat_t)
+
+        # add new generators for inputs
+        if disc_b_mat is not None:
+            z.mat_t = np.concatenate((z.mat_t, disc_b_mat), axis=1)
+            z.init_bounds += input_box
+
+        if save:
+            rv.append(z.clone())
+
+    return rv
 
 def zono_from_box(box):
     'create a (compressed) zonotope from a box'
@@ -23,7 +62,7 @@ def zono_from_compressed_init_box(init_bm, init_bias, init_box):
     parameters are those obtained from nnstar.util.compress_init_box()
     '''
 
-    center = init_bias.copy()
+    cen = init_bias.copy()
 
     generators = []
     init_bounds = []
@@ -38,7 +77,7 @@ def zono_from_compressed_init_box(init_bm, init_bias, init_box):
 
     gen_mat_t = np.dot(init_bm, generators.transpose())
 
-    return Zonotope(center, gen_mat_t, init_bounds)
+    return Zonotope(cen, gen_mat_t, init_bounds)
 
 class Zonotope(Freezable):
     'zonotope class'
@@ -80,12 +119,12 @@ class Zonotope(Freezable):
 
         bounds_copy = [bounds.copy() for bounds in self.init_bounds]
         
-        return Zonotope(self.center, self.mat_t.copy(), bounds_copy)
+        rv = Zonotope(self.center, self.mat_t.copy(), bounds_copy)
+
+        return rv
 
     def maximize(self, vector):
         'get the maximum point of the zonotope in the passed-in direction'
-
-        Timers.tic('zonotope.maximize')
 
         rv = self.center.copy()
 
@@ -96,8 +135,6 @@ class Zonotope(Freezable):
             factor = ib[1] if res >= 0 else ib[0]
 
             rv += factor * row
-
-        Timers.toc('zonotope.maximize')
 
         return rv
 

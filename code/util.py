@@ -8,8 +8,6 @@ import numpy as np
 from scipy.sparse import csc_matrix
 from scipy.sparse.linalg import expm, expm_multiply
 
-from timerutil import Timers
-
 class Freezable():
     'a class where you can freeze the fields (prevent new fields from being created)'
 
@@ -58,53 +56,49 @@ def compress_init_box(input_box, tol=1e-9):
 
     return cur_bm, cur_bias, new_input_box
 
-def to_discrete_time_mat(a_mat, b_mat, dt):
+def to_discrete_time_mat(a_mat, b_mat, dt, quick=False):
     'convert an a and b matrix to a discrete time version'
-
-    Timers.tic('to_discrete_time_mat')
 
     rv_a = None
     rv_b = None
 
-    # first convert both to csc matrices
-    a_mat = csc_matrix(a_mat, dtype=float)
-    dims = a_mat.shape[0]
-    
-    Timers.tic('expm')
-    rv_a = expm(a_mat * dt)
-    Timers.toc('expm')
+    if quick:
+        rv_a = np.identity(a_mat.shape[0], dtype=float) + a_mat * dt
+        rv_b = b_mat * dt
+    else:
+        # first convert both to csc matrices
+        a_mat = csc_matrix(a_mat, dtype=float)
+        dims = a_mat.shape[0]
 
-    rv_a = rv_a.toarray()
+        rv_a = expm(a_mat * dt)
 
-    if b_mat is not None:
-        b_mat = csc_matrix(b_mat, dtype=float)
-        
-        rv_b = np.zeros(b_mat.shape, dtype=float)
+        rv_a = rv_a.toarray()
 
-        inputs = b_mat.shape[1]
+        if b_mat is not None:
+            b_mat = csc_matrix(b_mat, dtype=float)
 
-        for c in range(inputs):
-            # create the a_matrix augmented with a column of the b_matrix as an affine term
-            indptr = b_mat.indptr
+            rv_b = np.zeros(b_mat.shape, dtype=float)
 
-            data = np.concatenate((a_mat.data, b_mat.data[indptr[c]:indptr[c+1]]))
-            indices = np.concatenate((a_mat.indices, b_mat.indices[indptr[c]:indptr[c+1]]))
-            indptr = np.concatenate((a_mat.indptr, [len(data)]))
+            inputs = b_mat.shape[1]
 
-            aug_a_csc = csc_matrix((data, indices, indptr), shape=(dims + 1, dims + 1))
+            for c in range(inputs):
+                # create the a_matrix augmented with a column of the b_matrix as an affine term
+                indptr = b_mat.indptr
 
-            mat = aug_a_csc * dt
+                data = np.concatenate((a_mat.data, b_mat.data[indptr[c]:indptr[c+1]]))
+                indices = np.concatenate((a_mat.indices, b_mat.indices[indptr[c]:indptr[c+1]]))
+                indptr = np.concatenate((a_mat.indptr, [len(data)]))
 
-            # the last column of matrix_exp is the same as multiplying it by the initial state [0, 0, ..., 1]
-            init_state = np.zeros(dims + 1, dtype=float)
-            init_state[dims] = 1.0
+                aug_a_csc = csc_matrix((data, indices, indptr), shape=(dims + 1, dims + 1))
 
-            Timers.tic('expm_multiply')
-            col = expm_multiply(mat, init_state)
-            Timers.toc('expm_multiply')
+                mat = aug_a_csc * dt
 
-            rv_b[:, c] = col[:dims]
+                # the last column of matrix_exp is the same as multiplying it by the initial state [0, 0, ..., 1]
+                init_state = np.zeros(dims + 1, dtype=float)
+                init_state[dims] = 1.0
 
-    Timers.toc('to_discrete_time_mat')
+                col = expm_multiply(mat, init_state)
+
+                rv_b[:, c] = col[:dims]
 
     return rv_a, rv_b
