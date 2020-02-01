@@ -1,6 +1,6 @@
 # Quick Zono Reach
 
-<p align="center"> <img src="code/quickzonoreach.png" alt="zono reach set" width=400/> </p>
+<p align="center"> <img src="code/quickzonoreach.png" alt="zono reach set" width=400/> <img src="code/hylaa.png" alt="Hylaa" width=400/> </p>
 
 Python code for quick computations of reach sets in discrete time using zonotopes.
 
@@ -11,11 +11,9 @@ Code is also included for optimizing the zonotope in a specific direction as wel
 To see some examples of usage, see `code/quickzonoreach.py`. If you run this
 directly using python3, it will produce `quickzonoreach.png` (the plot at the top of the readme) which matches Hylaa's output, `hylaa.png`, produced by `hylaa_check.py` (you'll need Hylaa from https://github.com/stanleybak/hylaa).
 
-<p align="center"> <img src="code/hylaa.png" alt="Hylaa" width=400/> </p>
-
 This will also profile the method for a noisey high-dimensional harmonic oscillator with two inputs, varying the number of dimensions and time steps.
 
-A quick mode is also provided, and can provide an approximation of the reach set, especially when the time step dt is small. A comparison for a 4-d system with 512 steps is below:
+A quick mode is also provided, and can provide an approximation of the reach set, especially when the time step dt is small. A comparison for a 4-d system with a step size of pi/256 for 256 steps is below:
 
 <p align="center"> <img src="code/compare.png" alt="comparison" width=400/> </p>
 
