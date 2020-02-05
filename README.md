@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/stanleybak/quickzonoreach.svg?branch=master)](https://travis-ci.org/stanleybak/quickzonoreach)
+
 # Quick Zono Reach #
 
 <p align="center"> <img src="code/quickzonoreach.png" alt="zono reach set" width=400/> <img src="code/hylaa.png" alt="Hylaa" width=375/> </p>
