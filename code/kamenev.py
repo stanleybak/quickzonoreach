@@ -8,8 +8,6 @@ May 16, 2019
 import numpy as np
 from scipy.spatial import ConvexHull
 
-from nnstar.timerutil import Timers
-
 def _get_orthonormal_rank(vecs, tol=1e-7):
     '''
     given a list of vecs, return a new vector orthonormal to them and the rank of the matrix
@@ -70,8 +68,6 @@ def _find_init_simplex(dims, supp_point_func):
     find an n-dimensional initial simplex
     '''
 
-    Timers.tic('init_simplex')
-
     # first, construct the initial simplex and determine a basis for the convex set (it may be degenerate)
     init_simplex = _find_two_points(dims, supp_point_func)
 
@@ -110,8 +106,6 @@ def _find_init_simplex(dims, supp_point_func):
 
             vecs.append(new_dir) # forces a new orthonormal direction during the next iteration
             degenerate_dirs.append(new_dir)
-
-    Timers.toc('init_simplex')
 
     return init_simplex
 
@@ -170,9 +164,7 @@ def _v_h_rep_given_init_simplex(init_simplex, supp_point_func, epsilon=1e-7):
         new_pts = []
         max_error = 0
 
-        Timers.tic('ConvexHull')
         hull = ConvexHull(verts)
-        Timers.toc('ConvexHull')
 
         for i, simplex in enumerate(hull.simplices):
             is_new = False
@@ -189,9 +181,7 @@ def _v_h_rep_given_init_simplex(init_simplex, supp_point_func, epsilon=1e-7):
             normal = hull.equations[i, :-1]
             rhs = -1 * hull.equations[i, -1]
 
-            Timers.tic('supp_point_func')
             supporting_pt = supp_point_func(normal)
-            Timers.toc('supp_point_func')
             
             error = np.dot(supporting_pt, normal) - rhs
             max_error = max(max_error, error)

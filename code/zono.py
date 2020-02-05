@@ -58,8 +58,6 @@ def zono_from_box(box):
 
 def zono_from_compressed_init_box(init_bm, init_bias, init_box):
     '''create a Zonotope from a compressed init box (deep copy)
-
-    parameters are those obtained from nnstar.util.compress_init_box()
     '''
 
     cen = init_bias.copy()
