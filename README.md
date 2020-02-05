@@ -84,6 +84,7 @@ Quick Save Last | **32 steps** | **64 steps** | **128 steps** | **256 steps** | 
 There exists a docker container which in theory should make sure the examples can execute after each commit to the repo. For details, see the commands and comments in the Dockerfile. To run the examples in Docker do:
 
 `docker build -t quickzono .`
+
 `docker run quickzono`
 
 
