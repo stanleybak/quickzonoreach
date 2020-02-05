@@ -81,7 +81,7 @@ Quick Save Last | **32 steps** | **64 steps** | **128 steps** | **256 steps** | 
 
 ## Docker Container & Continous Integration ##
 
-There exists a docker container which in theory should make sure the examples can execute after each commit to the repo. For details, see the commands and comments in the Dockerfile. To run the examples in Docker do:
+There exists a Docker container which in theory should make sure the examples can execute after each commit, as indicated by the image at the top of the `README`. For details, see the commands and comments in the `Dockerfile`. To run the examples in Docker do:
 
 ```
 docker build -t quickzono .
