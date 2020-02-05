@@ -79,6 +79,14 @@ Quick Save Last | **32 steps** | **64 steps** | **128 steps** | **256 steps** | 
 **512 dims** | 0.6 | 1.2 | - | - | - | - | - | - | - | -
 **1024 dims** | 3.8 | - | - | - | - | - | - | - | - | -
 
+## Docker Container & Continous Integration ##
+
+There exists a docker container which in theory should make sure the examples can execute after each commit to the repo. For details, see the commands and comments in the Dockerfile. To run the examples in Docker do:
+
+> docker build -t quickzono .
+> docker run quickzono
+
+
 ## Ideas for More Speed ##
 
 If using `quick` and only saving some of the zonotopes is still too slow, make sure you have a good version of BLAS installed like OpenBlas (matrix dot product in `numpy` is an important operation for speed). It may be possible to use 32-bit floats instead of 64 bit.
