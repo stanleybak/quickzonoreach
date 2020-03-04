@@ -63,9 +63,15 @@ def to_discrete_time_mat(a_mat, b_mat, dt, quick=False):
     rv_b = None
 
     if quick:
+        if not isinstance(a_mat, np.ndarray):
+            a_mat = np.array(a_mat, dtype=float)
+        
         rv_a = np.identity(a_mat.shape[0], dtype=float) + a_mat * dt
 
         if b_mat is not None:
+            if not isinstance(b_mat, np.ndarray):
+                b_mat = np.array(b_mat, dtype=float)
+            
             rv_b = b_mat * dt
     else:
         # first convert both to csc matrices

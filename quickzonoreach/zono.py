@@ -123,6 +123,7 @@ class Zonotope(Freezable):
         assert len(center.shape) == 1 or center.shape[0] == 1, f"Expected 1-d center, got {center.shape}"
         assert len(gen_mat_t.shape) == 2, f"expected 2-d gen_mat_t, got {gen_mat_t.shape}"
         assert isinstance(gen_mat_t, np.ndarray), f"gen_mat_t was {type(gen_mat_t)}"
+        assert isinstance(center, np.ndarray), f"gen_mat_t was {type(gen_mat_t)}"
 
         self.center = center.copy()
 
