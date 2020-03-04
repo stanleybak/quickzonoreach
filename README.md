@@ -11,7 +11,7 @@ Quickzonoreach is a `python3` library for quick computations of discrete-time re
 Important functions (all in `quickzonoreach/zono.py`):
 
 * `get_zonotope_reachset()`: computes and returns the reach set, given lists for the parameters at each step.
-* `iterate_zonotope_reachset()`: runs a passed-in custom function on each element of the reach set, given parameters similar to get_zonotope_reachset
+* `iterate_zonotope_reachset()`: runs a passed-in custom function on each element of the reach set, given parameters similar to `get_zonotope_reachset`
 * `Zonotope.verts()`: get an approximate 2-d projection of the zonotope.
 * `Zonotope.plot()`: plots a 2-d projection of the zonotope with matplotlib.
 * `Zonotope.maximize()`: optimize over the zonotope in a given direction, for quick safety checking without LP.
@@ -68,18 +68,7 @@ Quick Save All | **8 steps** | **16 steps** | **32 steps** | **64 steps** | **12
 
 
 ### Quick Matrix Exponential, Saving Only the Last Zonotope ###
-Quick Save Last | **32 steps** | **64 steps** | **128 steps** | **256 steps** | **512 steps** | **1024 steps** | **2048 steps** | **4096 steps** | **8192 steps** | **16384 steps**
---- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
-**2 dims** | 0.001 | 0.002 | 0.004 | 0.02 | 0.03 | 0.05 | 0.06 | 0.2 | 0.5 | 1.6
-**4 dims** | 0.0008 | 0.001 | 0.002 | 0.005 | 0.01 | 0.03 | 0.08 | 0.3 | 0.9 | 5.7
-**8 dims** | 0.001 | 0.003 | 0.005 | 0.02 | 0.03 | 0.07 | 0.1 | 0.7 | 3.5 | -
-**16 dims** | 0.002 | 0.003 | 0.007 | 0.02 | 0.08 | 0.2 | 0.6 | 2.1 | - | -
-**32 dims** | 0.003 | 0.006 | 0.02 | 0.05 | 0.1 | 0.4 | 1.4 | - | - | -
-**64 dims** | 0.02 | 0.03 | 0.04 | 0.1 | 0.3 | 0.8 | 3.3 | - | - | -
-**128 dims** | 0.05 | 0.07 | 0.09 | 0.3 | 0.9 | 2.9 | - | - | - | -
-**256 dims** | 0.1 | 0.3 | 0.6 | 1.1 | - | - | - | - | - | -
-**512 dims** | 0.6 | 1.2 | - | - | - | - | - | - | - | -
-**1024 dims** | 3.8 | - | - | - | - | - | - | - | - | -
+
 Which zonotopes are saved can be controlled with the `save_list` parameter to `get_zonotope_reachset`. If you're doing many steps or working in high dimensions, saving copies at every step can sometimes slow things down.
 
 Quick Save Last | **32 steps** | **64 steps** | **128 steps** | **256 steps** | **512 steps** | **1024 steps** | **2048 steps** | **4096 steps** | **8192 steps** | **16384 steps** | **32768 steps**
