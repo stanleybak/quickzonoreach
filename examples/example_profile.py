@@ -10,7 +10,7 @@ import time
 import math
 
 import numpy as np
-from zono import get_zonotope_reachset
+from quickzonoreach.zono import get_zonotope_reachset
 
 def run_single_profile(dims, num_steps, quick=False, save_all=True):
     '''run the computation and return zonos for a single parameter setup

@@ -8,13 +8,13 @@ import math
 
 import matplotlib.pyplot as plt
 
-from zono import get_zonotope_reachset
+from quickzonoreach.zono import get_zonotope_reachset
 
 def main():
     'example to make quickzonoreach.png'
 
     filename = 'quickzonoreach.png'
-    print(f"making {filename}")
+    print(f"making {filename}...")
     
     # x' = y + u1, y' = -x + + u1 + u2
     # u1 in [-0.5, 0.5], u2 in [-1, 0]

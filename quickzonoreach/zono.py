@@ -1,13 +1,17 @@
 '''
+quickzonoreach 
+
 zonotope functions
+
+Stanley Bak
 '''
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-from util import compress_init_box, Freezable, to_discrete_time_mat
+from quickzonoreach.util import compress_init_box, Freezable, to_discrete_time_mat
 
-import kamenev
+from quickzonoreach import kamenev
 
 def get_zonotope_reachset(init_box, a_mat_list, b_mat_list, input_box_list, dt_list, save_list=None, quick=False):
     '''get the discrete-time zonotope reachable set at each time step
@@ -27,14 +31,34 @@ def get_zonotope_reachset(init_box, a_mat_list, b_mat_list, input_box_list, dt_l
 
     assert len(save_list) == len(a_mat_list) + 1, "Save mat list should be one longer than the other lists"
 
-    z = zono_from_box(init_box)
-
     rv = []
 
-    if save_list[0]:
-        rv.append(z.clone())
+    def custom_func(index, zonotope):
+        'custom function that gets called on each zonotope in iterate_zonotope_reachset'
 
-    for a_mat, b_mat, input_box, dt, save in zip(a_mat_list, b_mat_list, input_box_list, dt_list, save_list[1:]):
+        if save_list[index]:
+            rv.append(zonotope.clone())
+
+    iterate_zonotope_reachset(init_box, a_mat_list, b_mat_list, input_box_list, dt_list, custom_func, quick=quick)
+
+    return rv
+
+def iterate_zonotope_reachset(init_box, a_mat_list, b_mat_list, input_box_list, dt_list, custom_func, quick=False):
+    '''
+    iterate over each element of the reach set, running a custom function each time which can be used to do 
+    processing such as checking for bad state intersections, saving states, or plotting
+
+    params are same as get_zonotope_reach_set, except for custom_func which takes in two arguments: 
+    (index, Zonotope), where index is an int that is 0 for the initial zonotope and increments at each step
+    '''
+
+    z = zono_from_box(init_box)
+
+    index = 0
+    custom_func(index, z)
+    index += 1
+
+    for a_mat, b_mat, input_box, dt in zip(a_mat_list, b_mat_list, input_box_list, dt_list):
         disc_a_mat, disc_b_mat = to_discrete_time_mat(a_mat, b_mat, dt, quick=quick)
 
         z.mat_t = np.dot(disc_a_mat, z.mat_t)
@@ -44,10 +68,8 @@ def get_zonotope_reachset(init_box, a_mat_list, b_mat_list, input_box_list, dt_l
             z.mat_t = np.concatenate((z.mat_t, disc_b_mat), axis=1)
             z.init_bounds += input_box
 
-        if save:
-            rv.append(z.clone())
-
-    return rv
+        custom_func(index, z)
+        index += 1
 
 def zono_from_box(box):
     'create a (compressed) zonotope from a box'

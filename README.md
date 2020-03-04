@@ -4,13 +4,14 @@
 
 <p align="center"> <img src="code/quickzonoreach.png" alt="zono reach set" width=400/> <img src="code/hylaa.png" alt="Hylaa" width=375/> </p>
 
-Quickzonoreach is a `python3` library for quick computations of discrete-time reach sets using zonotopes, aiming to be suitable for online computation. The system model is `x' = A_i x + B_i u`, where `A_i` and `B_i` can change at each step. The initial states are given as a box and each step can have its own box input constraints and time step.
+Quickzonoreach is a `python3` library for quick computations of discrete-time reach sets using zonotopes, aiming to be suitable for online computation. The system model is `x' = A_i x + B_i u`, where `A_i` and `B_i` can change at each step (suitable for piecewise trajectory linearized models). The initial states are given as a box and each step can have its own box input constraints and time step.
 
 ## Important Functions ##
 
-Important functions (all in `zono.py`):
+Important functions (all in `quickzonoreach/zono.py`):
 
 * `get_zonotope_reachset()`: computes and returns the reach set, given lists for the parameters at each step.
+* `iterate_zonotope_reachset()`: runs a passed-in custom function on each element of the reach set, given parameters similar to get_zonotope_reachset
 * `Zonotope.verts()`: get an approximate 2-d projection of the zonotope.
 * `Zonotope.plot()`: plots a 2-d projection of the zonotope with matplotlib.
 * `Zonotope.maximize()`: optimize over the zonotope in a given direction, for quick safety checking without LP.
