@@ -12,7 +12,7 @@ Important functions:
 
 * `get_zonotope_reachset()` (in `quickzonoreach/zono.py`): computes and returns the reach set, given lists for the parameters at each step.
 * `iterate_zonotope_reachset()` (in `quickzonoreach/zono.py`): runs a passed-in custom function on each element of the reach set, given parameters similar to `get_zonotope_reachset`
-* `get_centeR_sim()` (in `quickzonoreach/sim.py`): computes a center simulation using similar parameters as `get_zonotope_reachset`. Useful for sanity checks.
+* `get_center_sim()` (in `quickzonoreach/sim.py`): computes a center simulation using similar parameters as `get_zonotope_reachset`. Useful for sanity checks.
 * `Zonotope.verts()` (in `quickzonoreach/zono.py`): get an approximate 2-d projection of the zonotope.
 * `Zonotope.box_bounds()` (in `quickzonoreach/zono.py`): quick box bounds of the zonotope.
 * `Zonotope.plot()` (in `quickzonoreach/zono.py`): plots a 2-d projection of the zonotope with matplotlib.
