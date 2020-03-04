@@ -64,7 +64,9 @@ def to_discrete_time_mat(a_mat, b_mat, dt, quick=False):
 
     if quick:
         rv_a = np.identity(a_mat.shape[0], dtype=float) + a_mat * dt
-        rv_b = b_mat * dt
+
+        if b_mat is not None:
+            rv_b = b_mat * dt
     else:
         # first convert both to csc matrices
         a_mat = csc_matrix(a_mat, dtype=float)

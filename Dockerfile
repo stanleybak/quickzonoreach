@@ -12,7 +12,7 @@ COPY . /quickzonoreach
 ENV PYTHONPATH=$PYTHONPATH:/quickzonoreach
 
 ### As default command: run the tests ###
-CMD python3 /quickzonoreach/examples/example_plot.py && python3 /quickzonoreach/examples/example_compare.py && python3 /quickzonoreach/examples/example_profile.py
+CMD python3 /quickzonoreach/examples/example_plot.py && python3 /quickzonoreach/examples/example_compare.py && python3 /quickzonoreach/examples/example_time_varying.py && python3 /quickzonoreach/examples/example_profile.py
 
 # USAGE:
 # Build container and name it 'quickzonoreach':
