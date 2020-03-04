@@ -2,7 +2,7 @@
 
 # Quick Zono Reach #
 
-<p align="center"> <img src="code/quickzonoreach.png" alt="zono reach set" width=400/> <img src="code/hylaa.png" alt="Hylaa" width=375/> </p>
+<p align="center"> <img src="examples/quickzonoreach.png" alt="zono reach set" width=400/> <img src="examples/hylaa.png" alt="Hylaa" width=375/> </p>
 
 Quickzonoreach is a `python3` library for quick computations of discrete-time reach sets using zonotopes, aiming to be suitable for online computation. The system model is `x' = A_i x + B_i u`, where `A_i` and `B_i` can change at each step (suitable for piecewise trajectory linearized models). The initial states are given as a box and each step can have its own box input constraints and time step.
 
@@ -20,15 +20,15 @@ Important functions (all in `quickzonoreach/zono.py`):
 
 Three examples are also provided:
 
-* `code/example_plot.py`: Produce `quickzonoreach.png` (the plot at the top of the `README`) which matches Hylaa's output, `hylaa.png`, that can be produced by `hylaa_check.py` (you'll need Hylaa installed from https://github.com/stanleybak/hylaa).
-* `code/example_compare.py`: Compares accuracy using `quick=True` (Euler approximation) method vs computing full matrix exponential. The `quick=True` mode is fairly accurate when the time step is small. This plot is provided below.
-* `code/example_profile.py`: Measures runtime for various step sizes and dimensions to produce the tables shown below.
+* `examples/example_plot.py`: Produce `quickzonoreach.png` (the plot at the top of the `README`) which matches Hylaa's output, `hylaa.png`, that can be produced by `hylaa_check.py` (you'll need Hylaa installed from https://github.com/stanleybak/hylaa).
+* `examples/example_compare.py`: Compares accuracy using `quick=True` (Euler approximation) method vs computing full matrix exponential. The `quick=True` mode is fairly accurate when the time step is small. This plot is provided below.
+* `examples/example_profile.py`: Measures runtime for various step sizes and dimensions to produce the tables shown below.
 
 ## Quick Matrix Exponential Mode ##
 
 The `quick=True` parameter to `get_zonotope_reachset` can be used to approximate the matrix exponential by the first two terms of the series definition (`e^{At} = I + At`), rather than computing it with a library call to `expm`. This is slightly faster, and may be accurate enough especially when the time step is small. A plot showing the difference at the final time step (at time `pi`) for the noisy harmonic oscillator system is below:
 
-<p align="center"> <img src="code/compare.png" alt="comparison" width=400/> </p>
+<p align="center"> <img src="examples/compare.png" alt="comparison" width=400/> </p>
 
 ## Performance ##
 
@@ -68,7 +68,18 @@ Quick Save All | **8 steps** | **16 steps** | **32 steps** | **64 steps** | **12
 
 
 ### Quick Matrix Exponential, Saving Only the Last Zonotope ###
-
+Quick Save Last | **32 steps** | **64 steps** | **128 steps** | **256 steps** | **512 steps** | **1024 steps** | **2048 steps** | **4096 steps** | **8192 steps** | **16384 steps**
+--- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
+**2 dims** | 0.001 | 0.002 | 0.004 | 0.02 | 0.03 | 0.05 | 0.06 | 0.2 | 0.5 | 1.6
+**4 dims** | 0.0008 | 0.001 | 0.002 | 0.005 | 0.01 | 0.03 | 0.08 | 0.3 | 0.9 | 5.7
+**8 dims** | 0.001 | 0.003 | 0.005 | 0.02 | 0.03 | 0.07 | 0.1 | 0.7 | 3.5 | -
+**16 dims** | 0.002 | 0.003 | 0.007 | 0.02 | 0.08 | 0.2 | 0.6 | 2.1 | - | -
+**32 dims** | 0.003 | 0.006 | 0.02 | 0.05 | 0.1 | 0.4 | 1.4 | - | - | -
+**64 dims** | 0.02 | 0.03 | 0.04 | 0.1 | 0.3 | 0.8 | 3.3 | - | - | -
+**128 dims** | 0.05 | 0.07 | 0.09 | 0.3 | 0.9 | 2.9 | - | - | - | -
+**256 dims** | 0.1 | 0.3 | 0.6 | 1.1 | - | - | - | - | - | -
+**512 dims** | 0.6 | 1.2 | - | - | - | - | - | - | - | -
+**1024 dims** | 3.8 | - | - | - | - | - | - | - | - | -
 Which zonotopes are saved can be controlled with the `save_list` parameter to `get_zonotope_reachset`. If you're doing many steps or working in high dimensions, saving copies at every step can sometimes slow things down.
 
 Quick Save Last | **32 steps** | **64 steps** | **128 steps** | **256 steps** | **512 steps** | **1024 steps** | **2048 steps** | **4096 steps** | **8192 steps** | **16384 steps** | **32768 steps**
