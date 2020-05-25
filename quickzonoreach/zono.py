@@ -57,8 +57,27 @@ def iterate_zonotope_reachset(init_box, a_mat_list, b_mat_list, input_box_list, 
     custom_func(index, z)
     index += 1
 
+    # reduces computation if not changes between steps
+    last_a_mat = None
+    last_b_mat = None
+    last_disc_a_mat = None
+    last_disc_b_mat = None
+    last_dt = None
+
     for a_mat, b_mat, input_box, dt in zip(a_mat_list, b_mat_list, input_box_list, dt_list):
-        disc_a_mat, disc_b_mat = to_discrete_time_mat(a_mat, b_mat, dt, quick=quick)
+
+        if a_mat is last_a_mat and b_mat is last_b_mat and dt == last_dt:
+            # if a and b matrices haven't changed
+            disc_a_mat = last_disc_a_mat
+            disc_b_mat = last_disc_b_mat
+        else:       
+            disc_a_mat, disc_b_mat = to_discrete_time_mat(a_mat, b_mat, dt, quick=quick)
+
+            last_a_mat = a_mat
+            last_b_mat = b_mat
+            last_disc_a_mat = disc_a_mat
+            last_disc_b_mat = disc_b_mat
+            last_dt = dt
 
         z.center = np.dot(disc_a_mat, z.center)
         z.mat_t = np.dot(disc_a_mat, z.mat_t)
